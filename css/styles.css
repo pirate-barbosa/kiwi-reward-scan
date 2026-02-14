@@ -583,6 +583,369 @@ body {
   line-height: 1.6;
 }
 
+/* ---------- Landing Actions ---------- */
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.action-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.action-btn--primary {
+  background: var(--gradient-hero);
+  color: white;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.action-btn--secondary {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.action-btn--secondary:active {
+  background: var(--bg-card-hover);
+}
+
+.landing-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.landing-divider::before,
+.landing-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.landing-divider span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- Gallery Error Toast ---------- */
+.gallery-error {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(225, 29, 72, 0.12);
+  border: 1px solid rgba(251, 113, 133, 0.25);
+  border-radius: var(--radius-sm);
+  color: var(--accent-rose);
+  font-size: 13px;
+  font-weight: 500;
+  animation: slideUp 0.3s ease;
+}
+
+/* ---------- Cashback Calculator ---------- */
+.calc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-top: 8px;
+}
+
+.calc-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1.5px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 4px 14px;
+  transition: border-color 0.2s;
+}
+
+.calc-input-row:focus-within {
+  border-color: var(--accent-indigo);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.calc-currency {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.calc-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 10px 0;
+  width: 100%;
+  -moz-appearance: textfield;
+}
+
+.calc-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.calc-input::-webkit-outer-spin-button,
+.calc-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.calc-results {
+  margin-top: 14px;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.calc-result-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+}
+
+.calc-result-card--primary {
+  background: rgba(52, 211, 153, 0.08);
+  border-color: rgba(52, 211, 153, 0.2);
+}
+
+.calc-result-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.calc-result-kiwis {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 2px;
+}
+
+.calc-result-card--primary .calc-result-kiwis {
+  color: var(--accent-emerald);
+}
+
+.calc-result-card:not(.calc-result-card--primary) .calc-result-kiwis {
+  color: var(--accent-indigo);
+}
+
+.calc-result-cashback {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.calc-hint {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+.calc-note {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ---------- Quick Pay Actions ---------- */
+.pay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform 0.1s, opacity 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 8px;
+}
+
+.pay-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.pay-btn--kiwi {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.2) 0%, rgba(52, 211, 153, 0.1) 100%);
+  border: 1.5px solid rgba(52, 211, 153, 0.3);
+}
+
+.pay-btn--generic {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-subtle);
+}
+
+.pay-btn__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pay-btn__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pay-btn__icon--kiwi {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--accent-emerald);
+}
+
+.pay-btn__icon--upi {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-indigo);
+}
+
+.pay-btn__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pay-btn__subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.pay-btn__arrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.pay-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.pay-hint strong {
+  color: var(--accent-emerald);
+}
+
+.pay-apps-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.pay-app-chip {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pay-app-chip:active {
+  background: color-mix(in srgb, var(--app-color) 15%, transparent);
+  border-color: color-mix(in srgb, var(--app-color) 40%, transparent);
+  color: var(--app-color);
+}
+
+/* ---------- Results Actions (bottom) ---------- */
+.results-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results-actions .scan-again-btn {
+  margin-top: 0;
+}
+
+.gallery-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s;
+}
+
+.gallery-link:active {
+  background: var(--bg-card);
+}
+
 /* ---------- Utility ---------- */
 .hidden {
   display: none !important;
