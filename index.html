@@ -50,11 +50,26 @@
         <path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/>
       </svg>
     </div>
-    <p class="empty-state__text">Tap the button below to open your camera<br/>and scan a UPI QR code</p>
-    <button class="scan-again-btn visible" onclick="startScanner()" style="margin-top:16px;">
-      Start Scanning
-    </button>
+    <p class="empty-state__text">Scan a UPI QR code to decode<br/>merchant details &amp; check rewards</p>
+    <div class="landing-actions">
+      <button class="action-btn action-btn--primary" onclick="startScanner()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Scan with Camera
+      </button>
+      <div class="landing-divider"><span>or</span></div>
+      <button class="action-btn action-btn--secondary" onclick="document.getElementById('galleryInput').click()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Upload QR Image
+      </button>
+    </div>
+    <div id="galleryError" class="gallery-error" style="display:none;">
+      No QR code found in this image. Please try a clearer photo.
+    </div>
+    <input type="file" id="galleryInput" accept="image/*" style="display:none" onchange="scanFromGallery(this)" />
   </div>
+
+  <!-- Hidden element for gallery QR scanning -->
+  <div id="readerGallery" style="display:none;"></div>
 
   <!-- Scanner (hidden until user taps Start) -->
   <section class="scanner-section" id="scannerSection" style="display:none;">
@@ -84,6 +99,20 @@
     <div class="section-title">Kiwi Rewards Eligibility</div>
     <div id="kiwiRewardsCard" class="kiwi-section"></div>
 
+    <!-- Cashback Calculator (shown only for eligible merchants) -->
+    <div id="cashbackCalculator" style="display:none;">
+      <div class="divider"></div>
+      <div class="section-title">Cashback Calculator</div>
+      <div id="cashbackContent"></div>
+    </div>
+
+    <!-- Quick Pay -->
+    <div id="payActions" style="display:none;">
+      <div class="divider"></div>
+      <div class="section-title">Quick Pay</div>
+      <div id="payActionsContent"></div>
+    </div>
+
     <div class="divider"></div>
     <div class="section-title">Raw UPI Data</div>
 
@@ -110,7 +139,13 @@
       </div>
     </div>
 
-    <button class="scan-again-btn visible" onclick="resetScanner()">Scan Another QR Code</button>
+    <div class="results-actions">
+      <button class="scan-again-btn visible" onclick="resetScanner()">Scan Another QR Code</button>
+      <button class="gallery-link" onclick="document.getElementById('galleryInput').click()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Upload Image Instead
+      </button>
+    </div>
   </div>
 
 </div>
