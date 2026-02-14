@@ -1,16 +1,34 @@
 /**
  * App Entry Point — Boots the UPI QR Decoder application.
+ *
+ * NOTE: We intentionally do NOT auto-start the camera here.
+ * iOS WebKit browsers require getUserMedia to be called from
+ * a user gesture (tap/click). The user taps "Start Scanning"
+ * which triggers startScanner() from scanner.js.
  */
-import { startScanner } from './modules/scanner.js';
 
-// ── Bootstrap ───────────────────────────────────────────────
-startScanner();
+// Import scanner module so it registers the global handlers
+// (window.startScanner, window.resetScanner)
+import './modules/scanner.js';
 
-// ── PWA Service Worker (minimal, for Add to Home Screen) ────
+// ── Register Service Worker (enables offline support) ───────
 if ('serviceWorker' in navigator) {
-  var sw =
-    "self.addEventListener('install', function(e) { self.skipWaiting(); });" +
-    "self.addEventListener('fetch', function(e) {});";
-  var blob = new Blob([sw], { type: 'text/javascript' });
-  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(function () {});
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function (reg) {
+        console.log('[SW] Registered, scope:', reg.scope);
+
+        reg.addEventListener('updatefound', function () {
+          var newWorker = reg.installing;
+          newWorker.addEventListener('statechange', function () {
+            if (newWorker.state === 'activated') {
+              console.log('[SW] New version activated — refresh for updates.');
+            }
+          });
+        });
+      })
+      .catch(function (err) {
+        console.warn('[SW] Registration failed:', err);
+      });
+  });
 }
