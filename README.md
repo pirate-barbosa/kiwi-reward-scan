@@ -1,4 +1,4 @@
-# UPI QR Decoder
+# KIWI REWARD SCANNER
 
 [![Deployment](https://img.shields.io/github/deployments/pirate-barbosa/kiwi-reward-scanner/github-pages?label=deploy&logo=github)](https://pirate-barbosa.github.io/kiwi-reward-scanner/)
 
