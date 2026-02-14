@@ -874,41 +874,66 @@ body {
   text-align: center;
   font-size: 12px;
   color: var(--text-muted);
-  margin-top: 10px;
-  font-weight: 500;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .pay-hint strong {
   color: var(--accent-emerald);
 }
 
-.pay-apps-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-  flex-wrap: wrap;
+.pay-section-intro {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 4px;
 }
 
-.pay-app-chip {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 6px;
-  border-radius: var(--radius-sm);
-  background: rgba(0, 0, 0, 0.25);
+.pay-apps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pay-app-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 8px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 600;
-  text-align: center;
   text-decoration: none;
-  transition: background 0.15s, border-color 0.15s;
+  transition: transform 0.1s, background 0.15s, border-color 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
 
-.pay-app-chip:active {
-  background: color-mix(in srgb, var(--app-color) 15%, transparent);
-  border-color: color-mix(in srgb, var(--app-color) 40%, transparent);
-  color: var(--app-color);
+.pay-app-btn:active {
+  transform: scale(0.95);
+  background: color-mix(in srgb, var(--app-color) 10%, var(--bg-card));
+  border-color: color-mix(in srgb, var(--app-color) 35%, transparent);
+}
+
+.pay-app-btn__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pay-app-btn__name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 /* ---------- Results Actions (bottom) ---------- */
