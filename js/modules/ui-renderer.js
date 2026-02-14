@@ -7,6 +7,7 @@ import { checkKiwiEligibility } from './kiwi-checker.js';
 const DOM = {
   results:          document.getElementById('results'),
   emptyState:       document.getElementById('emptyState'),
+  landingState:     document.getElementById('landingState'),
   typeBadge:        document.getElementById('typeBadge'),
   merchantInfoCards:document.getElementById('merchantInfoCards'),
   kiwiRewardsCard:  document.getElementById('kiwiRewardsCard'),
@@ -186,6 +187,7 @@ function renderParams(params) {
  * @param {object} data  Parsed UPI data from upi-parser.js
  */
 export function showResults(data) {
+  DOM.landingState.style.display = 'none';
   DOM.emptyState.style.display = 'none';
   DOM.results.classList.add('visible');
   DOM.scannerSection.style.display = 'none';
@@ -205,8 +207,10 @@ export function showResults(data) {
 
 /**
  * Reset the UI back to scanner mode.
+ * Called when user taps "Start Scanning" or "Scan Another".
  */
 export function showScanner() {
+  DOM.landingState.style.display = 'none';
   DOM.scannerSection.style.display = 'block';
   DOM.results.classList.remove('visible');
   DOM.emptyState.style.display = 'block';

@@ -1,5 +1,9 @@
 /**
  * Scanner — Manages the html5-qrcode camera lifecycle.
+ *
+ * iOS WebKit (Safari, DuckDuckGo, Chrome on iPhone) requires getUserMedia
+ * to be called from a user-gesture handler (tap/click). We therefore expose
+ * `startScanner` to be called from a button click, never automatically.
  */
 import { parseUPI } from './upi-parser.js';
 import { showResults, showScanner, showCameraError } from './ui-renderer.js';
@@ -46,25 +50,61 @@ function onScanSuccess(decodedText) {
 }
 
 /**
- * Start (or restart) the QR scanner camera.
+ * Patch the video element after html5-qrcode creates it.
+ * iOS requires playsinline for inline video playback.
+ */
+function patchVideoElement() {
+  var video = document.querySelector('#reader video');
+  if (video) {
+    video.setAttribute('playsinline', 'true');
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('muted', 'true');
+  }
+}
+
+/**
+ * Start the QR scanner camera.
+ * MUST be called from a user-gesture (tap/click) for iOS compatibility.
  */
 export function startScanner() {
   showScanner();
   isScanning = true;
 
+  // Clean up any previous instance
+  if (html5QrCode) {
+    try { html5QrCode.clear(); } catch (e) { /* ignore */ }
+  }
+
   html5QrCode = new Html5Qrcode('reader');
+
+  // Use relaxed constraints for maximum iOS compatibility:
+  // - No aspectRatio (let the device pick its native ratio)
+  // - facingMode as a preference, not a hard requirement
   html5QrCode.start(
     { facingMode: 'environment' },
-    { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 },
+    {
+      fps: 10,
+      qrbox: function (viewfinderWidth, viewfinderHeight) {
+        var size = Math.min(viewfinderWidth, viewfinderHeight) * 0.75;
+        return { width: Math.floor(size), height: Math.floor(size) };
+      }
+    },
     onScanSuccess,
-    function () { /* ignore scan errors */ }
-  ).catch(function (err) {
+    function () { /* ignore per-frame scan misses */ }
+  ).then(function () {
+    // Once camera is running, patch the video element for iOS
+    patchVideoElement();
+  }).catch(function (err) {
     console.error('Camera error:', err);
     showCameraError();
   });
 }
 
-// Expose reset globally so the onclick in HTML can call it
+// Expose globally for onclick handlers in HTML
+window.startScanner = function () {
+  startScanner();
+};
+
 window.resetScanner = function () {
   startScanner();
 };
