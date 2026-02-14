@@ -7,11 +7,12 @@
   <meta name="theme-color" content="#0f172a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Scan UPI QR codes to decode merchant details and check Kiwi reward eligibility" />
 
-  <!-- QR Scanner Library -->
-  <script src="https://unpkg.com/html5-qrcode"></script>
+  <!-- QR Scanner Library (vendored locally for offline support) -->
+  <script src="vendor/html5-qrcode.min.js"></script>
 
-  <!-- Fonts -->
+  <!-- Fonts: system-first with optional Google Fonts enhancement -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -20,19 +21,11 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="data:application/manifest+json,{
-    &quot;name&quot;:&quot;UPI QR Decoder&quot;,
-    &quot;short_name&quot;:&quot;UPI Decode&quot;,
-    &quot;start_url&quot;:&quot;.&quot;,
-    &quot;display&quot;:&quot;standalone&quot;,
-    &quot;background_color&quot;:&quot;#0f172a&quot;,
-    &quot;theme_color&quot;:&quot;#0f172a&quot;,
-    &quot;icons&quot;:[{
-      &quot;src&quot;:&quot;https://cdn-icons-png.flaticon.com/512/891/891462.png&quot;,
-      &quot;sizes&quot;:&quot;192x192&quot;,
-      &quot;type&quot;:&quot;image/png&quot;
-    }]
-  }">
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- PWA Icons -->
+  <link rel="icon" type="image/svg+xml" href="icons/icon-192.svg" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
 </head>
 
 <body>
@@ -50,8 +43,21 @@
     <p class="header__subtitle">Scan &middot; Decode &middot; Check Rewards</p>
   </header>
 
-  <!-- Scanner -->
-  <section class="scanner-section" id="scannerSection">
+  <!-- Landing State (shown before first scan) -->
+  <div id="landingState" class="empty-state">
+    <div class="empty-state__icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/>
+      </svg>
+    </div>
+    <p class="empty-state__text">Tap the button below to open your camera<br/>and scan a UPI QR code</p>
+    <button class="scan-again-btn visible" onclick="startScanner()" style="margin-top:16px;">
+      Start Scanning
+    </button>
+  </div>
+
+  <!-- Scanner (hidden until user taps Start) -->
+  <section class="scanner-section" id="scannerSection" style="display:none;">
     <div class="scanner-label">
       <span class="scanner-label__dot"></span>
       Camera Active
@@ -61,13 +67,8 @@
     </div>
   </section>
 
-  <!-- Empty State -->
-  <div id="emptyState" class="empty-state">
-    <div class="empty-state__icon">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/>
-      </svg>
-    </div>
+  <!-- Empty State (shown while scanner is active, before decode) -->
+  <div id="emptyState" class="empty-state" style="display:none;">
     <p class="empty-state__text">Point your camera at a UPI QR code<br/>to decode merchant details</p>
   </div>
 
