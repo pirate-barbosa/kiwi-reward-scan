@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="38" fill="url(#bg)"/>
+  <g stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(40,40)">
+    <!-- QR code icon -->
+    <rect x="4" y="4" width="40" height="40" rx="6"/>
+    <rect x="68" y="4" width="40" height="40" rx="6"/>
+    <rect x="4" y="68" width="40" height="40" rx="6"/>
+    <rect x="16" y="16" width="16" height="16" rx="2"/>
+    <rect x="80" y="16" width="16" height="16" rx="2"/>
+    <rect x="16" y="80" width="16" height="16" rx="2"/>
+    <rect x="68" y="68" width="16" height="16" rx="2"/>
+    <line x1="108" y1="68" x2="108" y2="108"/>
+    <line x1="68" y1="108" x2="108" y2="108"/>
+    <line x1="92" y1="68" x2="92" y2="92"/>
+    <line x1="68" y1="92" x2="92" y2="92"/>
+  </g>
+</svg>
