@@ -4,7 +4,7 @@
  * Bump CACHE_VERSION when you deploy new code so the old cache is replaced.
  */
 
-const CACHE_VERSION = 'upi-decoder-v4';
+const CACHE_VERSION = 'upi-decoder-v5';
 
 /**
  * All local assets that make up the app shell.
@@ -22,6 +22,7 @@ const APP_SHELL = [
   './js/modules/kiwi-checker.js',
   './js/modules/ui-renderer.js',
   './js/modules/scanner.js',
+  './js/modules/history.js',
   './vendor/html5-qrcode.min.js',
   './icons/icon-192.svg',
   './icons/icon-512.svg'
