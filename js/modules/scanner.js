@@ -90,7 +90,13 @@ export function startScanner() {
     try { html5QrCode.clear(); } catch (e) { /* ignore */ }
   }
 
-  html5QrCode = new Html5Qrcode('reader');
+  html5QrCode = new Html5Qrcode('reader', {
+    // Only scan QR codes — skip all other barcode formats for much faster decoding
+    formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+    // Use the native BarcodeDetector API when available (Chrome/Edge on Android)
+    // for hardware-accelerated scanning
+    useBarCodeDetectorIfSupported: true
+  });
 
   // Use relaxed constraints for maximum iOS compatibility:
   // - No aspectRatio (let the device pick its native ratio)
@@ -98,11 +104,14 @@ export function startScanner() {
   html5QrCode.start(
     { facingMode: 'environment' },
     {
-      fps: 10,
+      fps: 15,
       qrbox: function (viewfinderWidth, viewfinderHeight) {
         var size = Math.min(viewfinderWidth, viewfinderHeight) * 0.75;
         return { width: Math.floor(size), height: Math.floor(size) };
-      }
+      },
+      // UPI QR codes are physical prints/stickers — no need to scan mirror images.
+      // Skipping flipped scanning halves the decode work per frame.
+      disableFlip: true
     },
     onScanSuccess,
     function () { /* ignore per-frame scan misses */ }
@@ -130,7 +139,10 @@ function scanFromGalleryFile(inputEl) {
   var fileRef = file;
   inputEl.value = '';
 
-  var galleryScanner = new Html5Qrcode('readerGallery');
+  var galleryScanner = new Html5Qrcode('readerGallery', {
+    formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+    useBarCodeDetectorIfSupported: true
+  });
   galleryScanner.scanFile(fileRef, false)
     .then(function (decodedText) {
       galleryScanner.clear();
