@@ -4,7 +4,7 @@
  * Bump CACHE_VERSION when you deploy new code so the old cache is replaced.
  */
 
-const CACHE_VERSION = 'upi-decoder-v8';
+const CACHE_VERSION = 'upi-decoder-v9';
 
 /**
  * All local assets that make up the app shell.
